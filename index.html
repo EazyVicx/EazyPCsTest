@@ -35,7 +35,7 @@
       overflow: hidden;
     }
 
-    /* Progress Bar itself */
+    /* Progress Bar */
     #progress-bar {
       height: 100%;
       width: 0%;
@@ -49,7 +49,7 @@
       transition: width 0.25s ease-out;
     }
 
-    /* Hover Effect for Progress Bar */
+    /* Progress Bar Hover Glow */
     #progress-bar-container:hover #progress-bar {
       background: linear-gradient(
         90deg,
@@ -136,6 +136,7 @@
       -webkit-overflow-scrolling: touch;
     }
 
+    /* Section Styles */
     .section {
       scroll-snap-align: start;
       height: 100vh;
@@ -158,7 +159,7 @@
       transform: translateY(0);
     }
 
-    /* Overlay for Backgrounds */
+    /* Background Overlay */
     .overlay {
       position: absolute;
       top: 0;
@@ -205,7 +206,7 @@
       transform: scale(0.95);
     }
 
-    /* Section Backgrounds */
+    /* Section Background Images */
     #section1 {
       background-image: url("images/1.JPG");
     }
@@ -305,38 +306,37 @@
   </div>
 
   <!-- Scripts -->
-
-  <!-- Page Load Fade-In -->
   <script>
+    // Page Load Fade
     window.addEventListener('load', () => {
       document.body.classList.add('loaded');
     });
-  </script>
 
-  <!-- Scroll Progress Bar -->
-  <script>
-    const progressBar = document.getElementById('progress-bar');
+    // Progress Bar Scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      const progressBar = document.getElementById('progress-bar');
 
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercent = (scrollTop / scrollHeight) * 100;
-      progressBar.style.width = scrollPercent + '%';
-    });
-  </script>
-
-  <!-- Section Fade-In on Scroll -->
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / scrollHeight) * 100;
+        progressBar.style.width = scrollPercent + '%';
       });
-    }, { threshold: 0.5 });
+    });
 
-    document.querySelectorAll('.section').forEach(section => {
-      observer.observe(section);
+    // Section Fade-In
+    document.addEventListener('DOMContentLoaded', function() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.5 });
+
+      document.querySelectorAll('.section').forEach(section => {
+        observer.observe(section);
+      });
     });
   </script>
 
