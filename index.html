@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EazyPC - Modern PC Solutions</title>
+
   <style>
     /* Basic Reset & Body Styles */
     html, body {
@@ -12,6 +13,52 @@
       overflow: hidden;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f4f4f4;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    body.loaded {
+      opacity: 1;
+    }
+
+    /* Progress Bar Container */
+    #progress-bar-container {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 4px;
+      background: rgba(0, 0, 0, 0.05);
+      z-index: 9999;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    /* Progress Bar itself */
+    #progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(
+        90deg,
+        rgb(46, 5, 128) 0%,
+        rgba(46, 5, 128, 0.8) 50%,
+        rgba(46, 5, 128, 0.5) 100%
+      );
+      border-radius: 2px;
+      transition: width 0.25s ease-out;
+    }
+
+    /* Hover Effect for Progress Bar */
+    #progress-bar-container:hover #progress-bar {
+      background: linear-gradient(
+        90deg,
+        rgb(86, 45, 200) 0%,
+        rgba(86, 45, 200, 0.8) 50%,
+        rgba(86, 45, 200, 0.5) 100%
+      );
+      box-shadow: 0 0 8px rgba(46, 5, 128, 0.6);
+      transition: all 0.3s ease;
     }
 
     /* Header Styles */
@@ -79,7 +126,7 @@
       color: purple;
     }
 
-    /* Section Wrapper Styles */
+    /* Section Wrapper */
     .section-wrapper {
       position: relative;
       height: 100vh;
@@ -101,9 +148,17 @@
       background-size: cover;
       background-position: center;
       position: relative;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
-    /* Overlay */
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Overlay for Backgrounds */
     .overlay {
       position: absolute;
       top: 0;
@@ -127,7 +182,30 @@
       margin-bottom: 20px;
     }
 
-    /* Background images */
+    /* Button Styles */
+    a.button-link {
+      background: none;
+      border: 1px solid white;
+      color: rgb(230, 230, 230);
+      padding: 10px 15px;
+      border-radius: 5px;
+      margin: 10px;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+    }
+
+    a.button-link:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      transform: scale(1.05);
+    }
+
+    a.button-link:active {
+      transform: scale(0.95);
+    }
+
+    /* Section Backgrounds */
     #section1 {
       background-image: url("images/1.JPG");
     }
@@ -140,24 +218,7 @@
       background-image: url("images/Jan. 2025 PC.PNG");
     }
 
-    /* Button Styles */
-    a.button-link {
-      background: none;
-      border: 1px solid white;
-      color: rgb(230, 230, 230);
-      padding: 10px 15px;
-      border-radius: 5px;
-      margin: 10px;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      display: inline-block;
-    }
-
-    a.button-link:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-      color: white;
-    }
-
-    /* Media Queries */
+    /* Responsive */
     @media (max-width: 600px) {
       header {
         padding: 8px 10px;
@@ -178,7 +239,6 @@
 
       .section h2 {
         font-size: 2em;
-        margin-bottom: 15px;
       }
 
       .content {
@@ -193,8 +253,15 @@
     }
   </style>
 </head>
+
 <body>
 
+  <!-- Progress Bar -->
+  <div id="progress-bar-container">
+    <div id="progress-bar"></div>
+  </div>
+
+  <!-- Header -->
   <header>
     <div class="brand-info">
       <p class="youtube-handle">@EazyVicx</p>
@@ -207,6 +274,7 @@
     </nav>
   </header>
 
+  <!-- Sections -->
   <div class="section-wrapper">
     <div id="section1" class="section">
       <div class="overlay"></div>
@@ -235,6 +303,42 @@
       </div>
     </div>
   </div>
+
+  <!-- Scripts -->
+
+  <!-- Page Load Fade-In -->
+  <script>
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+    });
+  </script>
+
+  <!-- Scroll Progress Bar -->
+  <script>
+    const progressBar = document.getElementById('progress-bar');
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / scrollHeight) * 100;
+      progressBar.style.width = scrollPercent + '%';
+    });
+  </script>
+
+  <!-- Section Fade-In on Scroll -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.section').forEach(section => {
+      observer.observe(section);
+    });
+  </script>
 
 </body>
 </html>
