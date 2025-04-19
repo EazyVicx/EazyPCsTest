@@ -9,14 +9,14 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font stack */
             margin: 0;
-            overflow: hidden; /* Prevent default scrollbar */
             background-color: #f4f4f4; /* Light background for contrast */
             height: 100vh; /* Ensure body takes full height */
+            overflow: hidden; /* Initially hide overflow */
         }
 
         html {
             height: 100%;
-            overflow: hidden; /* Ensure html also hides overflow */
+            overflow: hidden; /* Initially hide overflow */
         }
 
         /* Header Styles */
@@ -27,7 +27,7 @@
             width: 100%;
             background-color: rgba(69, 54, 107, 0.9); /* Semi-transparent white */
             backdrop-filter: blur(5px); /* Frosted glass effect */
-            padding: 10px 20px;
+            padding: 10px 15px; /* Adjusted padding for mobile */
             display: flex;
             justify-content: space-between; /* Space out logo/brand and nav */
             align-items: center;
@@ -39,34 +39,44 @@
         .brand-info {
             display: flex;
             flex-direction: column; /* Stack logo/handle and slogan */
+            max-width: 60%; /* Prevent overflow on smaller screens */
         }
 
         .youtube-handle {
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1em; /* Slightly smaller for mobile */
             color: #333;
             margin: 0;
+            white-space: nowrap; /* Prevent text wrapping */
+            overflow: hidden; /* Hide overflowing text */
+            text-overflow: ellipsis; /* Indicate overflow with an ellipsis */
         }
 
         .slogan {
-            font-size: 0.9em;
+            font-size: 0.8em; /* Slightly smaller for mobile */
             color: #555;
             margin: 0;
+            white-space: nowrap; /* Prevent text wrapping */
+            overflow: hidden; /* Hide overflowing text */
+            text-overflow: ellipsis; /* Indicate overflow with an ellipsis */
         }
 
         header nav {
             display: flex;
-            gap: 15px; /* Space between nav items */
+            gap: 10px; /* Reduced gap for mobile */
+            overflow-x: auto; /* Enable horizontal scrolling for nav on small screens */
+            -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
         }
 
         header nav a {
             text-decoration: none;
             color: #300a8a; /* Standard blue link color */
             font-weight: 500;
-            padding: 8px 12px;
+            padding: 6px 10px; /* Adjusted padding for mobile */
             border-radius: 4px;
             transition: background-color 0.3s ease, color 0.3s ease;
             cursor: pointer;
+            white-space: nowrap; /* Prevent text wrapping */
         }
 
         header nav a:hover,
@@ -97,6 +107,8 @@
             position: relative;
             height: 100vh; /* Wrapper takes full viewport height */
             width: 100%;
+            overflow-y: auto; /* Enable vertical scrolling within the wrapper */
+            -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
         }
 
         .section {
@@ -130,7 +142,7 @@
 
 
         .section h2 {
-            font-size: 3em;
+            font-size: 2.5em; /* Slightly smaller for mobile */
             color: white;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Stronger shadow for readability */
             margin-bottom: 20px; /* Space below heading */
@@ -158,6 +170,41 @@
 
         #section3 {
             background-image: url("images/Jan. 2025 PC.PNG");
+        }
+
+        /* Media query for smaller screens (example) */
+        @media (max-width: 600px) {
+            header {
+                padding: 8px 10px;
+            }
+
+            .brand-info {
+                max-width: 70%;
+            }
+
+            header nav {
+                gap: 8px;
+            }
+
+            header nav a {
+                padding: 5px 8px;
+                font-size: 0.9em;
+            }
+
+            .section h2 {
+                font-size: 2em;
+                margin-bottom: 15px;
+            }
+
+            .section .content {
+                padding: 15px;
+            }
+
+            a {
+                padding: 8px 12px;
+                margin: 8px;
+                font-size: 0.9em;
+            }
         }
     </style>
 </head>
@@ -202,7 +249,7 @@
                  <p style="color:white; max-width: 600px; margin-bottom: 20px;">Ready to build your dream PC or need help? Get in touch or book a counselling session.</p>
                  <a href="#section1" data-target="0">Back to Welcome</a>
                  <a href="#" id="contact-booking-link">Book Counselling Now</a>
-             </div>
+            </div>
         </div>
     </div>
 
@@ -234,12 +281,12 @@
             // Update navigation link appearance
             navLinks.forEach(link => link.classList.remove('active'));
             if (navLinks[targetIndex]) {
-                 navLinks[targetIndex].classList.add('active');
+                navLinks[targetIndex].classList.add('active');
             }
 
             // Start transition
             prevSection.classList.remove('active'); // Will start fading out due to CSS
-            nextSection.classList.add('active');    // Will start fading in due to CSS
+            nextSection.classList.add('active');     // Will start fading in due to CSS
 
             // Update current section index
             currentSection = targetIndex;
@@ -275,7 +322,7 @@
 
         }, { passive: false }); // passive: false needed to allow preventDefault
 
-        // Touch Event Scrolling (Basic Implementation)
+        // Touch Event Scrolling
         window.addEventListener('touchstart', (event) => {
             if (isScrolling) return;
             touchStartY = event.touches[0].clientY;
@@ -297,22 +344,21 @@
                     nextSectionIndex--;
                 }
 
-                 // Clamp index within bounds
+                // Clamp index within bounds
                 nextSectionIndex = Math.max(0, Math.min(nextSectionIndex, sections.length - 1));
 
                 if (nextSectionIndex !== currentSection) {
-                     // Temporarily prevent further touchmove processing during scroll
                     isScrolling = true;
                     goToSection(nextSectionIndex);
-                    // Reset touch start after triggering scroll to prevent multi-scrolls
+                    // Reset touch start Y after triggering scroll
                     touchStartY = touchEndY;
                 }
             }
-        }, { passive: false }); // Need passive:false if we might preventDefault, though not currently used here
+        }, { passive: true });
 
-         window.addEventListener('touchend', () => {
-            // Optional: Reset touch start Y if needed, though handled in move
-         }, { passive: true });
+        window.addEventListener('touchend', () => {
+            // Optional: Reset touch state if needed
+        }, { passive: true });
 
 
         // Navigation Link Clicks (Header)
@@ -326,11 +372,11 @@
 
         // Section Link Clicks (Buttons within sections)
         sectionLinks.forEach(link => {
-             link.addEventListener('click', (event) => {
+            link.addEventListener('click', (event) => {
                 event.preventDefault();
                 const targetIndex = parseInt(link.getAttribute('data-target'), 10);
-                 goToSection(targetIndex);
-             });
+                goToSection(targetIndex);
+            });
         });
 
         // Initial State Setup
