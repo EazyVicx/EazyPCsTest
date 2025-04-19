@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EazyPC - Modern PC Solutions</title>
+    <style>
+        /* Basic Reset & Body Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font stack */
+            margin: 0;
+            overflow: hidden; /* Prevent default scrollbar */
+            background-color: #f4f4f4; /* Light background for contrast */
+            height: 100vh; /* Ensure body takes full height */
+        }
+
+        html {
+            height: 100%;
+            overflow: hidden; /* Ensure html also hides overflow */
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed; /* Keep header at the top */
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            backdrop-filter: blur(5px); /* Frosted glass effect */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between; /* Space out logo/brand and nav */
+            align-items: center;
+            z-index: 1000; /* Ensure header is above sections */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+
+        .brand-info {
+            display: flex;
+            flex-direction: column; /* Stack logo/handle and slogan */
+        }
+
+        .youtube-handle {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #333;
+            margin: 0;
+        }
+
+        .slogan {
+            font-size: 0.9em;
+            color: #555;
+            margin: 0;
+        }
+
+        header nav {
+            display: flex;
+            gap: 15px; /* Space between nav items */
+        }
+
+        header nav a {
+            text-decoration: none;
+            color: #007bff; /* Standard blue link color */
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: pointer;
+        }
+
+        header nav a:hover,
+        header nav a.active { /* Style for hover and active section */
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* General Link Styles (outside header) */
+        a {
+            color: rgb(230, 230, 230); /* Lighter color for contrast on dark overlay */
+            text-decoration: none;
+            display: inline-block; /* Allow margin/padding */
+            padding: 10px 15px;
+            border: 1px solid white;
+            border-radius: 5px;
+            margin: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        /* Section Wrapper & Section Styles */
+        .section-wrapper {
+            position: relative;
+            height: 100vh; /* Wrapper takes full viewport height */
+            width: 100%;
+        }
+
+        .section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh; /* Each section is full height */
+            display: flex;
+            flex-direction: column; /* Stack content vertically */
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 0.8s ease-in-out; /* Smoother transition */
+            opacity: 0; /* Start hidden */
+            z-index: 1; /* Base layer */
+        }
+
+        .section.active {
+            opacity: 1; /* Active section is visible */
+            z-index: 2; /* Active section on top */
+        }
+
+        .section .content {
+            position: relative; /* To ensure content is above overlay */
+            z-index: 10;
+            padding: 20px; /* Add padding around content */
+        }
+
+
+        .section h2 {
+            font-size: 3em;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Stronger shadow for readability */
+            margin-bottom: 20px; /* Space below heading */
+        }
+
+        /* Overlay for background images */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            z-index: 5; /* Below content, above background */
+        }
+
+        /* Specific Section Backgrounds */
+        #section1 {
+            background-image: url("images/1.JPG"); /* Make sure these paths are correct */
+        }
+
+        #section2 {
+            background-image: url("images/3.JPG");
+        }
+
+        #section3 {
+            background-image: url("images/Jan. 2025 PC.PNG");
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="brand-info">
+             <p class="youtube-handle">@EazyVicx</p>
+             <p class="slogan">EazyPC's We Make it Cheap For You!</p>
+        </div>
+        <nav id="main-nav">
+            <a href="#" id="search-link">Search</a>
+            <a href="#" id="pcs-link">PCs</a>
+            <a href="#" id="counselling-link">Book Counselling</a>
+            <a href="#section1" data-index="0">Section 1</a>
+            <a href="#section2" data-index="1">Section 2</a>
+            <a href="#section3" data-index="2">Section 3</a>
+        </nav>
+    </header>
+
+    <div class="section-wrapper">
+        <div id="section1" class="section active"> <div class="overlay"></div>
+            <div class="content">
+                <h2>Welcome!</h2>
+                <a href="#section2" data-target="1">Explore Our PCs</a>
+            </div>
+        </div>
+
+        <div id="section2" class="section">
+            <div class="overlay"></div>
+            <div class="content">
+                <h2>Explore</h2>
+                 <p style="color:white; max-width: 600px; margin-bottom: 20px;">Discover our range of custom-built and pre-configured PCs designed for gaming, work, and everything in between.</p>
+                <a href="#section3" data-target="2">Contact Us</a>
+                <a href="#section1" data-target="0">Back to Welcome</a>
+            </div>
+        </div>
+
+        <div id="section3" class="section">
+             <div class="overlay"></div>
+             <div class="content">
+                 <h2>Contact Us</h2>
+                 <p style="color:white; max-width: 600px; margin-bottom: 20px;">Ready to build your dream PC or need help? Get in touch or book a counselling session.</p>
+                 <a href="#section1" data-target="0">Back to Welcome</a>
+                 <a href="#" id="contact-booking-link">Book Counselling Now</a>
+             </div>
+        </div>
+    </div>
+
+    <script>
+        const sections = document.querySelectorAll(".section");
+        const navLinks = document.querySelectorAll("#main-nav a[data-index]");
+        const sectionLinks = document.querySelectorAll(".section a[data-target]");
+        const transitionDuration = 800; // Match CSS transition duration in milliseconds
+        let currentSection = 0;
+        let isScrolling = false;
+        let touchStartY = 0;
+
+        // Function to navigate to a specific section
+        function goToSection(targetIndex) {
+            if (targetIndex === currentSection || isScrolling) {
+                return; // Do nothing if already on the section or mid-transition
+            }
+
+            if (targetIndex < 0 || targetIndex >= sections.length) {
+                console.warn("Target section index out of bounds:", targetIndex);
+                return; // Index out of bounds
+            }
+
+            isScrolling = true; // Lock scrolling
+
+            const prevSection = sections[currentSection];
+            const nextSection = sections[targetIndex];
+
+            // Update navigation link appearance
+            navLinks.forEach(link => link.classList.remove('active'));
+            if (navLinks[targetIndex]) {
+                 navLinks[targetIndex].classList.add('active');
+            }
+
+            // Start transition
+            prevSection.classList.remove('active'); // Will start fading out due to CSS
+            nextSection.classList.add('active');    // Will start fading in due to CSS
+
+            // Update current section index
+            currentSection = targetIndex;
+
+            // Unlock scrolling after transition duration
+            setTimeout(() => {
+                isScrolling = false;
+            }, transitionDuration);
+        }
+
+        // --- Event Listeners ---
+
+        // Mouse Wheel Scrolling
+        window.addEventListener("wheel", (event) => {
+            event.preventDefault(); // Prevent default page scroll
+            if (isScrolling) return;
+
+            const deltaY = event.deltaY;
+            let nextSectionIndex = currentSection;
+
+            if (deltaY > 20) { // Scroll down
+                nextSectionIndex++;
+            } else if (deltaY < -20) { // Scroll up
+                nextSectionIndex--;
+            }
+
+            // Clamp index within bounds
+            nextSectionIndex = Math.max(0, Math.min(nextSectionIndex, sections.length - 1));
+
+            if (nextSectionIndex !== currentSection) {
+                goToSection(nextSectionIndex);
+            }
+
+        }, { passive: false }); // passive: false needed to allow preventDefault
+
+        // Touch Event Scrolling (Basic Implementation)
+        window.addEventListener('touchstart', (event) => {
+            if (isScrolling) return;
+            touchStartY = event.touches[0].clientY;
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (event) => {
+            if (isScrolling) return;
+
+            const touchEndY = event.touches[0].clientY;
+            const deltaY = touchStartY - touchEndY; // Calculate swipe distance
+
+            // Determine swipe direction with a threshold
+            if (Math.abs(deltaY) > 50) { // Threshold to trigger scroll
+                let nextSectionIndex = currentSection;
+
+                if (deltaY > 0) { // Swiped up (equivalent to scroll down)
+                    nextSectionIndex++;
+                } else { // Swiped down (equivalent to scroll up)
+                    nextSectionIndex--;
+                }
+
+                 // Clamp index within bounds
+                nextSectionIndex = Math.max(0, Math.min(nextSectionIndex, sections.length - 1));
+
+                if (nextSectionIndex !== currentSection) {
+                     // Temporarily prevent further touchmove processing during scroll
+                    isScrolling = true;
+                    goToSection(nextSectionIndex);
+                    // Reset touch start after triggering scroll to prevent multi-scrolls
+                    touchStartY = touchEndY;
+                }
+            }
+        }, { passive: false }); // Need passive:false if we might preventDefault, though not currently used here
+
+         window.addEventListener('touchend', () => {
+            // Optional: Reset touch start Y if needed, though handled in move
+         }, { passive: true });
+
+
+        // Navigation Link Clicks (Header)
+        navLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent default anchor jump
+                const targetIndex = parseInt(link.getAttribute('data-index'), 10);
+                goToSection(targetIndex);
+            });
+        });
+
+        // Section Link Clicks (Buttons within sections)
+        sectionLinks.forEach(link => {
+             link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const targetIndex = parseInt(link.getAttribute('data-target'), 10);
+                 goToSection(targetIndex);
+             });
+        });
+
+        // Initial State Setup
+        function initializeSections() {
+            sections.forEach((section, index) => {
+                if (index === 0) {
+                    section.classList.add('active'); // Show first section
+                } else {
+                    section.classList.remove('active'); // Hide others
+                }
+            });
+            if (navLinks[0]) {
+                navLinks[0].classList.add('active'); // Highlight first nav link
+            }
+        }
+
+        // Initialize when the DOM is ready
+        document.addEventListener('DOMContentLoaded', initializeSections);
+
+    </script>
+</body>
+</html>
