@@ -1,403 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EazyPC - Modern PC Solutions</title>
-    <style>
-        /* Basic Reset & Body Styles */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font stack */
-            margin: 0;
-            background-color: #f4f4f4; /* Light background for contrast */
-            height: 100vh; /* Ensure body takes full height */
-            overflow: hidden; /* Initially hide overflow */
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EazyPC - Modern PC Solutions</title>
+  <style>
+    /* Basic Reset & Body Styles */
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+    }
 
-        html {
-            height: 100%;
-            margin: 0;
-            overflow: hidden; /* Initially hide overflow */
-        }
+    /* Header Styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(69, 54, 107, 0.9);
+      backdrop-filter: blur(5px);
+      padding: 10px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+    }
 
-        /* Header Styles */
-        header {
-            position: fixed; /* Keep header at the top */
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(69, 54, 107, 0.9); /* Semi-transparent white */
-            backdrop-filter: blur(5px); /* Frosted glass effect */
-            padding: 10px 15px; /* Adjusted padding for mobile */
-            display: flex;
-            justify-content: space-between; /* Space out logo/brand and nav */
-            align-items: center;
-            z-index: 1000; /* Ensure header is above sections */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box; /* Include padding in width calculation */
-        }
+    .brand-info {
+      display: flex;
+      flex-direction: column;
+      max-width: 60%;
+    }
 
-        .brand-info {
-            display: flex;
-            flex-direction: column; /* Stack logo/handle and slogan */
-            max-width: 60%; /* Prevent overflow on smaller screens */
-        }
+    .youtube-handle {
+      font-weight: bold;
+      font-size: 1em;
+      color: #333;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-        .youtube-handle {
-            font-weight: bold;
-            font-size: 1em; /* Slightly smaller for mobile */
-            color: #333;
-            margin: 0;
-            white-space: nowrap; /* Prevent text wrapping */
-            overflow: hidden; /* Hide overflowing text */
-            text-overflow: ellipsis; /* Indicate overflow with an ellipsis */
-        }
+    .slogan {
+      font-size: 0.8em;
+      color: #555;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-        .slogan {
-            font-size: 0.8em; /* Slightly smaller for mobile */
-            color: #555;
-            margin: 0;
-            white-space: nowrap; /* Prevent text wrapping */
-            overflow: hidden; /* Hide overflowing text */
-            text-overflow: ellipsis; /* Indicate overflow with an ellipsis */
-        }
+    header nav {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
 
-        header nav {
-            display: flex;
-            gap: 10px; /* Reduced gap for mobile */
-            overflow-x: auto; /* Enable horizontal scrolling for nav on small screens */
-            -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
-        }
+    header nav a {
+      text-decoration: none;
+      color: #300a8a;
+      font-weight: 500;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      white-space: nowrap;
+    }
 
-        header nav a {
-            text-decoration: none;
-            color: #300a8a; /* Standard blue link color */
-            font-weight: 500;
-            padding: 6px 10px; /* Adjusted padding for mobile */
-            border-radius: 4px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            cursor: pointer;
-            white-space: nowrap; /* Prevent text wrapping */
-        }
+    header nav a:hover,
+    header nav a.active {
+      background-color: #6932ed;
+      color: purple;
+    }
 
-        header nav a:hover,
-        header nav a.active { /* Style for hover and active section */
-            background-color: #6932ed;
-            color: purple;
-        }
+    /* Section Wrapper Styles */
+    .section-wrapper {
+      position: relative;
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
 
-        /* General Link Styles (outside header) */
-        a {
-            color: rgb(230, 230, 230); /* Lighter color for contrast on dark overlay */
-            text-decoration: none;
-            display: inline-block; /* Allow margin/padding */
-            padding: 10px 15px;
-            border: 1px solid white;
-            border-radius: 5px;
-            margin: 10px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+    .section {
+      scroll-snap-align: start;
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
 
-        a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
+    /* Overlay */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
 
-        /* Section Wrapper & Section Styles */
-        .section-wrapper {
-            height: 100vh; /* Wrapper takes full viewport height */
-            overflow-y: auto; /* Enable vertical scrolling within the wrapper */
-            scroll-snap-type: y mandatory;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
-        }
+    .content {
+      position: relative;
+      z-index: 2;
+      padding: 20px;
+      color: white;
+    }
 
-        .section {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh; /* Each section is full height */
-            scroll-snap-align: start;
-            display: flex;
-            flex-direction: column; /* Stack content vertically */
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background-size: cover;
-            background-position: center;
-            transition: opacity 0.8s ease-in-out; /* Smoother transition */
-            opacity: 0; /* Start hidden */
-            z-index: 1; /* Base layer */
-        }
+    .section h2 {
+      font-size: 2.5em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      margin-bottom: 20px;
+    }
 
-        .section.active {
-            opacity: 1; /* Active section is visible */
-            z-index: 2; /* Active section on top */
-        }
+    /* Background images */
+    #section1 {
+      background-image: url("images/1.JPG");
+    }
 
-        .section .content {
-            position: relative; /* To ensure content is above overlay */
-            z-index: 10;
-            padding: 20px; /* Add padding around content */
-        }
+    #section2 {
+      background-image: url("images/3.JPG");
+    }
 
+    #section3 {
+      background-image: url("images/Jan. 2025 PC.PNG");
+    }
 
-        .section h2 {
-            font-size: 2.5em; /* Slightly smaller for mobile */
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Stronger shadow for readability */
-            margin-bottom: 20px; /* Space below heading */
-        }
+    /* Button Styles */
+    a.button-link {
+      background: none;
+      border: 1px solid white;
+      color: rgb(230, 230, 230);
+      padding: 10px 15px;
+      border-radius: 5px;
+      margin: 10px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: inline-block;
+    }
 
-        /* Overlay for background images */
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
-            z-index: 5; /* Below content, above background */
-        }
+    a.button-link:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+    }
 
-        /* Specific Section Backgrounds */
-        #section1 {
-            background-image: url("images/1.JPG"); /* Make sure these paths are correct */
-        }
+    /* Media Queries */
+    @media (max-width: 600px) {
+      header {
+        padding: 8px 10px;
+      }
 
-        #section2 {
-            background-image: url("images/3.JPG");
-        }
+      .brand-info {
+        max-width: 70%;
+      }
 
-        #section3 {
-            background-image: url("images/Jan. 2025 PC.PNG");
-        }
+      header nav {
+        gap: 8px;
+      }
 
-        /* Media query for smaller screens (example) */
-        @media (max-width: 600px) {
-            header {
-                padding: 8px 10px;
-            }
+      header nav a {
+        padding: 5px 8px;
+        font-size: 0.9em;
+      }
 
-            .brand-info {
-                max-width: 70%;
-            }
+      .section h2 {
+        font-size: 2em;
+        margin-bottom: 15px;
+      }
 
-            header nav {
-                gap: 8px;
-            }
+      .content {
+        padding: 15px;
+      }
 
-            header nav a {
-                padding: 5px 8px;
-                font-size: 0.9em;
-            }
-
-            .section h2 {
-                font-size: 2em;
-                margin-bottom: 15px;
-            }
-
-            .section .content {
-                padding: 15px;
-            }
-
-            a {
-                padding: 8px 12px;
-                margin: 8px;
-                font-size: 0.9em;
-            }
-        }
-    </style>
+      a.button-link {
+        padding: 8px 12px;
+        margin: 8px;
+        font-size: 0.9em;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="brand-info">
-             <p class="youtube-handle">@EazyVicx</p>
-             <p class="slogan">EazyPC's We Make it Cheap For You!</p>
-        </div>
-        <nav id="main-nav">
-            <a href="#" id="search-link">Search</a>
-            <a href="#" id="pcs-link">PCs</a>
-            <a href="#" id="counselling-link">Book Counselling</a>
-            <a href="#section1" data-index="0">Section 1</a>
-            <a href="#section2" data-index="1">Section 2</a>
-            <a href="#section3" data-index="2">Section 3</a>
-        </nav>
-    </header>
 
-    <div class="section-wrapper">
-        <div id="section1" class="section active"> <div class="overlay"></div>
-            <div class="content">
-                <h2>Welcome!</h2>
-                <a href="#section2" data-target="1">Explore Our PCs</a>
-            </div>
-        </div>
+  <header>
+    <div class="brand-info">
+      <p class="youtube-handle">@EazyVicx</p>
+      <p class="slogan">EazyPC's We Make it Cheap For You!</p>
+    </div>
+    <nav id="main-nav">
+      <a href="#section1">Section 1</a>
+      <a href="#section2">Section 2</a>
+      <a href="#section3">Section 3</a>
+    </nav>
+  </header>
 
-        <div id="section2" class="section">
-            <div class="overlay"></div>
-            <div class="content">
-                <h2>Explore</h2>
-                 <p style="color:white; max-width: 600px; margin-bottom: 20px;">Discover our range of custom-built and pre-configured PCs designed for gaming, work, and everything in between.</p>
-                <a href="#section3" data-target="2">Contact Us</a>
-                <a href="#section1" data-target="0">Back to Welcome</a>
-            </div>
-        </div>
-
-        <div id="section3" class="section">
-             <div class="overlay"></div>
-             <div class="content">
-                 <h2>Contact Us</h2>
-                 <p style="color:white; max-width: 600px; margin-bottom: 20px;">Ready to build your dream PC or need help? Get in touch or book a counselling session.</p>
-                 <a href="#section1" data-target="0">Back to Welcome</a>
-                 <a href="#" id="contact-booking-link">Book Counselling Now</a>
-            </div>
-        </div>
+  <div class="section-wrapper">
+    <div id="section1" class="section">
+      <div class="overlay"></div>
+      <div class="content">
+        <h2>Welcome!</h2>
+        <a href="#section2" class="button-link">Explore Our PCs</a>
+      </div>
     </div>
 
-    <script>
-        const sections = document.querySelectorAll(".section");
-        const navLinks = document.querySelectorAll("#main-nav a[data-index]");
-        const sectionLinks = document.querySelectorAll(".section a[data-target]");
-        const transitionDuration = 800; // Match CSS transition duration in milliseconds
-        let currentSection = 0;
-        let isScrolling = false;
-        let touchStartY = 0;
+    <div id="section2" class="section">
+      <div class="overlay"></div>
+      <div class="content">
+        <h2>Explore</h2>
+        <p>Discover our range of custom-built and pre-configured PCs designed for gaming, work, and everything in between.</p>
+        <a href="#section3" class="button-link">Contact Us</a>
+        <a href="#section1" class="button-link">Back to Welcome</a>
+      </div>
+    </div>
 
-        // Function to navigate to a specific section
-        function goToSection(targetIndex) {
-            if (targetIndex === currentSection || isScrolling) {
-                return; // Do nothing if already on the section or mid-transition
-            }
+    <div id="section3" class="section">
+      <div class="overlay"></div>
+      <div class="content">
+        <h2>Contact Us</h2>
+        <p>Ready to build your dream PC or need help? Get in touch or book a counselling session.</p>
+        <a href="#section1" class="button-link">Back to Welcome</a>
+      </div>
+    </div>
+  </div>
 
-            if (targetIndex < 0 || targetIndex >= sections.length) {
-                console.warn("Target section index out of bounds:", targetIndex);
-                return; // Index out of bounds
-            }
-
-            isScrolling = true; // Lock scrolling
-
-            const prevSection = sections[currentSection];
-            const nextSection = sections[targetIndex];
-
-            // Update navigation link appearance
-            navLinks.forEach(link => link.classList.remove('active'));
-            if (navLinks[targetIndex]) {
-                navLinks[targetIndex].classList.add('active');
-            }
-
-            // Start transition
-            prevSection.classList.remove('active'); // Will start fading out due to CSS
-            nextSection.classList.add('active');     // Will start fading in due to CSS
-
-            // Update current section index
-            currentSection = targetIndex;
-
-            // Unlock scrolling after transition duration
-            setTimeout(() => {
-                isScrolling = false;
-            }, transitionDuration);
-        }
-
-        // --- Event Listeners ---
-
-        // Mouse Wheel Scrolling
-        window.addEventListener("wheel", (event) => {
-            event.preventDefault(); // Prevent default page scroll
-            if (isScrolling) return;
-
-            const deltaY = event.deltaY;
-            let nextSectionIndex = currentSection;
-
-            if (deltaY > 20) { // Scroll down
-                nextSectionIndex++;
-            } else if (deltaY < -20) { // Scroll up
-                nextSectionIndex--;
-            }
-
-            // Clamp index within bounds
-            nextSectionIndex = Math.max(0, Math.min(nextSectionIndex, sections.length - 1));
-
-            if (nextSectionIndex !== currentSection) {
-                goToSection(nextSectionIndex);
-            }
-
-        }, { passive: false }); // passive: false needed to allow preventDefault
-
-        // Touch Event Scrolling
-        window.addEventListener('touchstart', (event) => {
-            if (isScrolling) return;
-            touchStartY = event.touches[0].clientY;
-        }, { passive: true });
-
-        window.addEventListener('touchmove', (event) => {
-            if (isScrolling) return;
-
-            const touchEndY = event.touches[0].clientY;
-            const deltaY = touchStartY - touchEndY; // Calculate swipe distance
-
-            // Determine swipe direction with a threshold
-            if (Math.abs(deltaY) > 50) { // Threshold to trigger scroll
-                let nextSectionIndex = currentSection;
-
-                if (deltaY > 0) { // Swiped up (equivalent to scroll down)
-                    nextSectionIndex++;
-                } else { // Swiped down (equivalent to scroll up)
-                    nextSectionIndex--;
-                }
-
-                // Clamp index within bounds
-                nextSectionIndex = Math.max(0, Math.min(nextSectionIndex, sections.length - 1));
-
-                if (nextSectionIndex !== currentSection) {
-                    isScrolling = true;
-                    goToSection(nextSectionIndex);
-                    // Reset touch start Y after triggering scroll
-                    touchStartY = touchEndY;
-                }
-            }
-        }, { passive: true });
-
-        window.addEventListener('touchend', () => {
-            // Optional: Reset touch state if needed
-        }, { passive: true });
-
-
-        // Navigation Link Clicks (Header)
-        navLinks.forEach(link => {
-            link.addEventListener('click', (event) => {
-                event.preventDefault(); // Prevent default anchor jump
-                const targetIndex = parseInt(link.getAttribute('data-index'), 10);
-                goToSection(targetIndex);
-            });
-        });
-
-        // Section Link Clicks (Buttons within sections)
-        sectionLinks.forEach(link => {
-            link.addEventListener('click', (event) => {
-                event.preventDefault();
-                const targetIndex = parseInt(link.getAttribute('data-target'), 10);
-                goToSection(targetIndex);
-            });
-        });
-
-        // Initial State Setup
-        function initializeSections() {
-            sections.forEach((section, index) => {
-                if (index === 0) {
-                    section.classList.add('active'); // Show first section
-                } else {
-                    section.classList.remove('active'); // Hide others
-                }
-            });
-            if (navLinks[0]) {
-                navLinks[0].classList.add('active'); // Highlight first nav link
-            }
-        }
-
-        // Initialize when the DOM is ready
-        document.addEventListener('DOMContentLoaded', initializeSections);
-
-    </script>
 </body>
 </html>
