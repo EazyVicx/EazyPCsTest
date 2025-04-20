@@ -153,7 +153,7 @@
       background-position: center;
       opacity: 0;
       transform: translateY(50px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transition: opacity 1s ease, transform 1s ease;
     }
 
     .section.visible {
@@ -308,37 +308,39 @@
 
   <!-- Scripts -->
   <script>
-    // Page Load Fade
-    window.addEventListener('load', () => {
-      document.body.classList.add('loaded');
+   // Page Load Fade
+  window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+  });
+
+  // Progress Bar Scroll
+  document.addEventListener('DOMContentLoaded', function() {
+    const progressBar = document.getElementById('progress-bar');
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / scrollHeight) * 100;
+      progressBar.style.width = scrollPercent + '%';
     });
+  });
 
-    // Progress Bar Scroll
-    document.addEventListener('DOMContentLoaded', function() {
-      const progressBar = document.getElementById('progress-bar');
-
-      window.addEventListener('scroll', () => {
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollPercent = (scrollTop / scrollHeight) * 100;
-        progressBar.style.width = scrollPercent + '%';
+  // Section Fade-In and Fade-Out
+  document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible'); // Remove visible when leaving view
+        }
       });
-    });
+    }, { threshold: 0.4 }); // little softer trigger (~40% of the section visible)
 
-    // Section Fade-In
-    document.addEventListener('DOMContentLoaded', function() {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, { threshold: 0.5 });
-
-      document.querySelectorAll('.section').forEach(section => {
-        observer.observe(section);
-      });
+    document.querySelectorAll('.section').forEach(section => {
+      observer.observe(section);
     });
+  });
   </script>
 
 <footer style="background-color: rgb(46, 5, 128); color: white; padding: 20px 0; text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 14px;">
