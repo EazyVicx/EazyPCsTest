@@ -73,6 +73,7 @@
       width: 100%;
       background-color: rgba(86, 6, 148, 0.8);
       backdrop-filter: blur(5px);
+      overflow-x: hidden;
       padding: 10px 15px;
       display: flex;
       justify-content: space-between;
@@ -118,10 +119,12 @@
       text-decoration: none;
       color: #ec03fc;
       font-weight: 500;
+      overflow-x: auto;
       padding: 5px 10px;
       border-radius: 3px;
       transition: background-color 0.3s ease, color 0.3s ease;
       white-space: nowrap;
+      max-width: 100%;
     }
 
     header nav a:hover,
