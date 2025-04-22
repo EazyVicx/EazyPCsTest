@@ -12,6 +12,7 @@
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow-x: hidden;
+      overflow: hidden;
       background-color: #13002b;
       opacity: 1;
       transition: opacity 1s ease;
@@ -136,6 +137,10 @@
     /* Section Wrapper */
     .section-wrapper {
       padding-top: 70px;
+      overflow-y: scroll;
+      scroll-snap-type: y proximity; 
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
     }
 
     /* Section Styles */
@@ -152,7 +157,7 @@
       background-size: cover;
       background-position: center;
       opacity: 0;
-      transform: translateY(50px) scale(0.98); /* ✅ Add a small scale down initially */
+      transform: translateY(50px) scale(0.98); 
       transition: opacity 1s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
@@ -301,7 +306,7 @@
       <div class="content">
         <h2>Contact Us</h2>
         <p>Ready to build your dream PC or need help? Get in touch or book a counselling session.</p>
-        <a href="#/Contact-Us.html" class="button-link">Back to Welcome</a>
+        <a href="#/Contact-Us.html" class="button-link">Go to Contact Us</a>
       </div>
     </div>
   </div>
