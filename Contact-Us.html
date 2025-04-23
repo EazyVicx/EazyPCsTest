@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact-Us</title>
+  <title>Contact Us - EazyPC</title>
 
   <style>
     /* Basic Reset & Body Styles */
@@ -11,15 +11,47 @@
       height: 100%;
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
       background-color: #13002b;
       opacity: 1;
       transition: opacity 1s ease;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-      scroll-snap-type: y mandatory;
-      scroll-behavior: smooth;
     }
+
+    body.loaded {
+      opacity: 1;
+    }
+
+    /* Progress Bar */
+    #progress-bar-container {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 7px;
+      background: rgba(0, 0, 0, 0.05);
+      z-index: 9999;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    #progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(
+        90deg,
+        rgb(46, 5, 128) 0%,
+        rgba(46, 5, 128, 0.8) 50%,
+        rgba(46, 5, 128, 0.5) 100%
+      );
+      border-radius: 2px;
+      transition: width 0.25s ease-out;
+    }
+
+    /* Header Styles */
     header {
       position: fixed;
       top: 0;
@@ -32,7 +64,203 @@
       justify-content: space-between;
       align-items: center;
       z-index: 1000;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       box-sizing: border-box;
     }
 
+    .brand-info {
+      display: flex;
+      flex-direction: column;
+      max-width: 60%;
+    }
+
+    .youtube-handle, .slogan {
+      color: #ec03fc;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    header nav a {
+      text-decoration: none;
+      color: #ec03fc;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 3px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      white-space: nowrap;
+    }
+
+    header nav a:hover {
+      background-color: #9032ed;
+      color: purple;
+    }
+
+    /* Contact Form Section */
+    .contact-wrapper {
+      flex: 1;
+      padding-top: 120px;
+      padding-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(30px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+
+    .contact-wrapper h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    .contact-form {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      width: 90%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 1em;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: #ccccff;
+    }
+
+    .contact-form button {
+      background-color: rgb(46, 5, 128);
+      color: white;
+      padding: 12px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .contact-form button:hover {
+      background-color: #9032ed;
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: rgb(46, 5, 128);
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #ccccff;
+      text-decoration: none;
+      margin: 0 10px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    footer a img {
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
+    }
+
+    footer a:hover {
+      color: #ffffff;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .contact-wrapper h2 {
+        font-size: 2em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Progress Bar -->
+<div id="progress-bar-container">
+  <div id="progress-bar"></div>
+</div>
+
+<!-- Header -->
+<header>
+  <div class="brand-info">
+    <p class="youtube-handle">@EazyVicx</p>
+    <p class="slogan">Making Custom PCs Eazy For You!</p>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+  </nav>
+</header>
+
+<!-- Contact Section -->
+<div class="contact-wrapper">
+  <h2>Contact Us</h2>
+  <form class="contact-form" action="mailto:your@email.com" method="POST" enctype="text/plain">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div style="margin-bottom: 10px;">
+    <a href="https://youtube.com/@EazyVicx" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube">
+      @EazyVicx
+    </a> 
+    |
+    <a href="https://youtube.com/@CDren" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube">
+      @CDren8345
+    </a>
+  </div>
+  <div style="font-size: 12px; opacity: 0.7;">
+    Copyright to be formed.
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+  window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const progressBar = document.getElementById('progress-bar');
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / scrollHeight) * 100;
+      progressBar.style.width = scrollPercent + '%';
+    });
+  });
+</script>
+
+</body>
+</html>
