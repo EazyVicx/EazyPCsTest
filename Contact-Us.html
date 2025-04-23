@@ -6,18 +6,20 @@
   <title>Contact Us - EazyPC</title>
 
   <style>
-    /* Basic Reset & Body Styles */
+    /* Basic Reset */
     html, body {
-      height: 100%;
       margin: 0;
+      padding: 0;
+      height: 100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('images/contact-bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      backdrop-filter: blur(5px);
       overflow-x: hidden;
-      background-color: #13002b;
-      opacity: 1;
-      transition: opacity 1s ease;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      scroll-behavior: smooth;
     }
 
     body.loaded {
@@ -51,11 +53,10 @@
       transition: width 0.25s ease-out;
     }
 
-    /* Header Styles */
+    /* Header */
     header {
       position: fixed;
       top: 0;
-      left: 0;
       width: 100%;
       background-color: rgba(86, 6, 148, 0.8);
       backdrop-filter: blur(5px);
@@ -64,43 +65,31 @@
       justify-content: space-between;
       align-items: center;
       z-index: 1000;
-      box-sizing: border-box;
     }
 
     .brand-info {
       display: flex;
       flex-direction: column;
-      max-width: 60%;
-    }
-
-    .youtube-handle, .slogan {
       color: #ec03fc;
-      margin: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     header nav a {
-      text-decoration: none;
       color: #ec03fc;
-      font-weight: 500;
-      padding: 5px 10px;
-      border-radius: 3px;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      white-space: nowrap;
+      text-decoration: none;
+      margin-left: 15px;
+      font-weight: bold;
+      transition: color 0.3s ease;
     }
 
     header nav a:hover {
-      background-color: #9032ed;
       color: purple;
     }
 
-    /* Contact Form Section */
+    /* Contact Section */
     .contact-wrapper {
       flex: 1;
-      padding-top: 120px;
-      padding-bottom: 40px;
+      padding-top: 140px;
+      padding-bottom: 150px; /* ✅ Footer won't always show immediately */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -110,62 +99,72 @@
     }
 
     @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(30px);}
-      100% { opacity: 1; transform: translateY(0);}
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .contact-wrapper h2 {
-      font-size: 2.5em;
+      font-size: 2.8em;
       margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
     }
 
     .contact-form {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      padding: 35px 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
       width: 90%;
       max-width: 500px;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 20px;
     }
 
-    .contact-form input,
+    .contact-form input, 
     .contact-form textarea {
-      padding: 12px;
+      background: rgba(255, 255, 255, 0.15);
       border: none;
-      border-radius: 5px;
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
+      border-radius: 8px;
+      padding: 12px;
       font-size: 1em;
+      color: white;
+      outline: none;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .contact-form input::placeholder,
+    .contact-form input::placeholder, 
     .contact-form textarea::placeholder {
       color: #ccccff;
     }
 
+    .contact-form input:focus, 
+    .contact-form textarea:focus {
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 8px rgba(86, 45, 200, 0.5);
+    }
+
     .contact-form button {
-      background-color: rgb(46, 5, 128);
+      background: rgb(46, 5, 128);
       color: white;
       padding: 12px;
-      font-size: 1em;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
+      font-size: 1em;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background 0.3s ease;
     }
 
     .contact-form button:hover {
-      background-color: #9032ed;
+      background: #9032ed;
     }
 
-    /* Footer Styles */
+    /* Footer */
     footer {
       background-color: rgb(46, 5, 128);
       color: white;
-      padding: 20px 0;
+      padding: 20px;
       text-align: center;
       font-size: 14px;
     }
@@ -185,13 +184,16 @@
     }
 
     footer a:hover {
-      color: #ffffff;
+      color: white;
     }
 
     /* Responsive */
     @media (max-width: 600px) {
       .contact-wrapper h2 {
         font-size: 2em;
+      }
+      .contact-form {
+        padding: 25px;
       }
     }
   </style>
@@ -218,7 +220,7 @@
 <!-- Contact Section -->
 <div class="contact-wrapper">
   <h2>Contact Us</h2>
-  <form class="contact-form" action="mailto:your@email.com" method="POST" enctype="text/plain">
+  <form class="contact-form" action="#" method="POST">
     <input type="text" name="name" placeholder="Your Name" required>
     <input type="email" name="email" placeholder="Your Email" required>
     <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
@@ -228,7 +230,7 @@
 
 <!-- Footer -->
 <footer>
-  <div style="margin-bottom: 10px;">
+  <div>
     <a href="https://youtube.com/@EazyVicx" target="_blank">
       <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube">
       @EazyVicx
